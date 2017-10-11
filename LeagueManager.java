@@ -1,7 +1,4 @@
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.stream.IntStream;
-import java.util.Map;
+
 
 
 import com.teamtreehouse.model.Player;
@@ -14,10 +11,13 @@ public class LeagueManager {
     Player[] players = Players.load();
     System.out.printf("%n%nThere are currently %d registered players.%n%n", players.length);
     // Your code here!
-
    
     do {
+
     	Prompter.displayMenu();
+    	String option = Prompter.promptUserInputForOption();
+    	System.out.println(option);
+
     } while(false);
    
   }
