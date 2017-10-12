@@ -12,15 +12,9 @@ public class Prompter {
 
 	private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-	public static void displayMenu() {
-		Map<Action, String> menu = Utility.generateMenu();
-		System.out.println("Menu");
-    	for(Map.Entry entry: menu.entrySet()) {
-    		System.out.printf("%s - %s%n", entry.getKey(), entry.getValue());
-    	}
-	}
-
 	public static String promptUserInputForOption() throws SLOException {
+
+		displayMenu();
 
 		String option = null;
 		System.out.print("\nSelect an option: ");
@@ -45,7 +39,6 @@ public class Prompter {
 
 			return new Team(teamName, coachName);
 
-
 		} catch(IOException ioe) {
 			ioe.printStackTrace();
 			throw new SLOException(SLErrorCode.SL0003, ioe.getMessage());
@@ -59,6 +52,16 @@ public class Prompter {
 			System.out.printf("%d) %s%n", i+1, player);
 		}
 		System.out.println("\n");
+	}
+
+	/* Private methods */
+
+	private static void displayMenu() {
+		Map<Action, String> menu = Utility.generateMenu();
+		System.out.println("Menu");
+    	for(Map.Entry entry: menu.entrySet()) {
+    		System.out.printf("%s - %s%n", entry.getKey(), entry.getValue());
+    	}
 	}
 
 }

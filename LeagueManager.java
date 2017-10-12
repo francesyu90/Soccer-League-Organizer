@@ -19,7 +19,6 @@ public class LeagueManager {
 
     	try {
 
-    		Prompter.displayMenu();
     		option = Prompter.promptUserInputForOption();
             if(option == null) {
                 continue;
