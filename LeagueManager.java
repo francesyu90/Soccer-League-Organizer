@@ -1,5 +1,6 @@
 import com.teamtreehouse.model.Player;
 import com.teamtreehouse.model.Players;
+import com.teamtreehouse.model.Teams;
 import com.teamtreehouse.utils.Prompter;
 import com.teamtreehouse.utils.Action;
 import com.teamtreehouse.utils.SLOException;
@@ -10,6 +11,8 @@ public class LeagueManager {
   public static void main(String[] args) {
     Player[] players = Players.load();
     System.out.printf("%n%nThere are currently %d registered players.%n%n", players.length);
+
+    Teams teams = new Teams();
    
     String option = null;
     do {
@@ -21,7 +24,7 @@ public class LeagueManager {
             if(option == null) {
                 continue;
             }
-            Executor.execAction(option);
+            Executor.execAction(option, teams);
 
     	} catch(SLOException sloe) {
 

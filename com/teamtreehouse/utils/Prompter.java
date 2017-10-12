@@ -5,6 +5,8 @@ import java.io.InputStreamReader;
 import java.io.IOException;
 import java.util.Map;
 
+import com.teamtreehouse.model.Team;
+
 public class Prompter {
 
 	private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -31,8 +33,23 @@ public class Prompter {
 		return option;
 	}	
 
-	public static void promptUserInputForTeamCreation() {
-		System.out.println("What is the team name? \n");
+	public static Team promptUserInputForTeamCreation() throws SLOException {
+
+		try {
+
+			System.out.printf("What is the team name? ");
+			String teamName = reader.readLine();
+			System.out.printf("What is the coach name? ");
+			String coachName = reader.readLine();
+
+			return new Team(teamName, coachName);
+
+
+		} catch(IOException ioe) {
+			ioe.printStackTrace();
+			throw new SLOException(SLErrorCode.SL0003, ioe.getMessage());
+		}
+
 	}
 
 }
