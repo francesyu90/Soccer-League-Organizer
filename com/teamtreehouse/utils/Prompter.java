@@ -17,20 +17,22 @@ public class Prompter {
     	}
 	}
 
-	public static String promptUserInputForOption() {
+	public static String promptUserInputForOption() throws SLOException {
 
 		String option = null;
 		System.out.print("\nSelect an option: ");
-		try(
-			BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-		) {
+		try {
 			option = reader.readLine();
 		} catch(IOException ioe) {
 			ioe.printStackTrace();
+			throw new SLOException(SLErrorCode.SL0002, ioe.getMessage());
 		}
 
 		return option;
-		
 	}	
+
+	public static void promptUserInputForTeamCreation() {
+		System.out.println("What is the team name? \n");
+	}
 
 }

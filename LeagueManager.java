@@ -3,6 +3,7 @@ import com.teamtreehouse.model.Players;
 import com.teamtreehouse.utils.Prompter;
 import com.teamtreehouse.utils.Action;
 import com.teamtreehouse.utils.SLOException;
+import com.teamtreehouse.utils.Executor;
 
 public class LeagueManager {
 
@@ -10,20 +11,24 @@ public class LeagueManager {
     Player[] players = Players.load();
     System.out.printf("%n%nThere are currently %d registered players.%n%n", players.length);
    
+    String option = null;
     do {
 
     	try {
 
     		Prompter.displayMenu();
-    		String option = Prompter.promptUserInputForOption();
-    		System.out.println(Action.findByKey(option));
+    		option = Prompter.promptUserInputForOption();
+            if(option == null) {
+                continue;
+            }
+            Executor.execAction(option);
 
     	} catch(SLOException sloe) {
 
-    		System.out.println(sloe.getErrorMessage());
+    		System.out.println(sloe.getErrorMessage() + "\n");
     	}
 
-    } while(false);
+    } while(option != null && !option.equalsIgnoreCase(Action.Quit.getDescription()));
    
   }
 

@@ -13,6 +13,7 @@ public enum Action {
 	Quit("quit");
 
 	private String mDescription;
+
 	private static final Map<String, Action> map;
 	static {
 		map = new HashMap<>();

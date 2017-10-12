@@ -25,11 +25,4 @@ public class Utility {
 	  	return menu;
 	}
 
-	public static void execAction(String option) {
-		// if(option.equalsIgnoreCase(action)) {
-
-		// }
-	}
-
-
 }
