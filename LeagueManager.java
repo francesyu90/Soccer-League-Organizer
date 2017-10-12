@@ -1,9 +1,8 @@
-
-
-
 import com.teamtreehouse.model.Player;
 import com.teamtreehouse.model.Players;
 import com.teamtreehouse.utils.Prompter;
+import com.teamtreehouse.utils.Action;
+import com.teamtreehouse.utils.SLOException;
 
 public class LeagueManager {
 
@@ -14,9 +13,16 @@ public class LeagueManager {
    
     do {
 
-    	Prompter.displayMenu();
-    	String option = Prompter.promptUserInputForOption();
-    	System.out.println(option);
+    	try {
+
+    		Prompter.displayMenu();
+    		String option = Prompter.promptUserInputForOption();
+    		System.out.println(Action.findByKey(option));
+
+    	} catch(SLOException sloe) {
+
+    		System.out.println(sloe.getErrorMessage());
+    	}
 
     } while(false);
    
