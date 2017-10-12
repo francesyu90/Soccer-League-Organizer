@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.Map;
 
 import com.teamtreehouse.model.Team;
+import com.teamtreehouse.model.Player;
 
 public class Prompter {
 
@@ -50,6 +51,14 @@ public class Prompter {
 			throw new SLOException(SLErrorCode.SL0003, ioe.getMessage());
 		}
 
+	}
+
+	public static void promptUserInputForPlayerAssignment(Player[] players) {
+		for(int i = 0; i < players.length; i++) {
+			Player player = players[i];
+			System.out.printf("%d) %s%n", i+1, player);
+		}
+		System.out.println("\n");
 	}
 
 }

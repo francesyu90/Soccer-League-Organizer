@@ -61,4 +61,12 @@ public class Player implements Comparable<Player>, Serializable {
     result = 31 * result + (previousExperience ? 1 : 0);
     return result;
   }
+
+  @Override
+  public String toString() {
+    String experienceLevel = (previousExperience)? "experienced" : "inexperienced";
+    return String.format(
+      "%s %s (%d inches - %s)", 
+      firstName, lastName, heightInInches, experienceLevel);
+  }
 }

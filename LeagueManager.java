@@ -24,13 +24,14 @@ public class LeagueManager {
             if(option == null) {
                 continue;
             }
-            Executor.execAction(option, teams);
+            Executor.execAction(option, teams, players);
 
     	} catch(SLOException sloe) {
 
     		System.out.println(sloe.getErrorMessage() + "\n");
     	}
 
+    // } while(false);
     } while(option != null && !option.equalsIgnoreCase(Action.Quit.getDescription()));
    
   }
