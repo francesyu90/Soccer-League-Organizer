@@ -53,7 +53,7 @@ public class Prompter {
 
 	}
 
-	public static void promptUserInputForPlayerAssignment(Player[] players) {
+	public static void showPlayers(Player[] players) {
 		for(int i = 0; i < players.length; i++) {
 			Player player = players[i];
 			System.out.printf("%d) %s%n", i+1, player);

@@ -37,7 +37,7 @@ public class Executor {
 	}
 
 	private static void assignPlayerToTeam(Player[] players) {
-		Prompter.promptUserInputForPlayerAssignment(players);
+		Prompter.showPlayers(players);
 	}
 
 
