@@ -35,7 +35,7 @@ public enum Action {
 		if(action == null) {
 			throw new SLOException(
 				SLErrorCode.SL0001, 
-				ErrorMessageTemplate.nullActionByDescritpion, 
+				MessageTemplate.nullActionByDescritpion, 
 				description);
 		}
 		return map.get(description);

@@ -18,7 +18,8 @@ public class SLOException extends Exception {
 	}
 
 	public String getErrorMessage() {
-		return String.format("%s: %s", this.mSlErrCd, this.getMessage());
+		return String.format(
+			"%s: %s - %s", "Error", this.mSlErrCd, this.getMessage());
 	}
 
 }

@@ -1,5 +1,6 @@
 package com.teamtreehouse.utils;
 
+import java.util.List;
 import java.util.Map;
 
 import com.teamtreehouse.model.Team;
@@ -24,7 +25,8 @@ public class Executor {
 				System.out.printf("%d team(s) in total.%n%n", teams.getTeams().size());
 				break;
 			case Add:
-				assignPlayerToTeam(players);
+				List<Team> teamList = teams.getTeams();
+				assignPlayerToTeam(players, teamList.toArray(new Team[teamList.size()]));
 				break;
 			default:
 		}
@@ -36,8 +38,10 @@ public class Executor {
 		return teams;
 	}
 
-	private static void assignPlayerToTeam(Player[] players) {
-		Prompter.showPlayers(players);
+	private static void assignPlayerToTeam(Player[] players, Team[] teams) 
+		throws SLOException {
+			
+		Prompter.promptUserInputForMemberAssignment(players, teams);
 	}
 
 
