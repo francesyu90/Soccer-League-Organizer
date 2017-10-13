@@ -49,28 +49,54 @@ public class Prompter {
 	public static void promptUserInputForMemberAssignment(
 		Player[] players, Team[] teams) throws SLOException {
 		
-		String input = null;
+		Integer playerIndex = getPlayerIndexFromUser(players);
+		System.out.printf("%s selected.%n%n", players[playerIndex].getName());
+
+		if(teams.length == 0) {
+			throw new SLOException(SLErrorCode.SL0006, MessageTemplate.teamSizeEmpty);
+		} else if (teams.length == 1) {
+			// TODO: automatically assign team if there is only one team available
+			return;
+		}
+
+		Integer teamIndex = -1;
+
+		showTeams(teams);
+
+	}
+
+	/* Private methods */
+
+	private static Integer getPlayerIndexFromUser(Player[] players)
+		throws SLOException {
+
 		Integer playerIndex = -1;
 
+		do {
+
+			System.out.println("Please select one of the following players.");
+			showPlayers(players);
+			System.out.printf("Select a player [between 1 and %d]: ", players.length);
+			playerIndex = getNumericInputFromUser() - 1;
+
+		} while(playerIndex < 0 || playerIndex >= players.length);
+
+		return playerIndex;
+
+	}
+
+	private static Integer getNumericInputFromUser()
+		throws SLOException {
+
+		String input = null;
+		Integer numericInput = -1;
+
 		try {
-
-			do {
-
-				System.out.println("Please select one of the following players.");
-				showPlayers(players);
-				System.out.printf("Select a player [between 1 and %d]: ", players.length);
-				input = reader.readLine();
-				playerIndex = Integer.parseInt(input) - 1;
-
-			} while(playerIndex < 0 || playerIndex >= players.length);
-
-			System.out.printf("%s selected.%n%n", players[playerIndex].getName());
-
-			showTeams(teams);
-
+			input = reader.readLine();
+			numericInput = Integer.parseInt(input);
 
 		} catch(NumberFormatException nfe) {
-			
+
 			nfe.printStackTrace();
 			throw new SLOException(
 				SLErrorCode.SL0004, 
@@ -83,9 +109,10 @@ public class Prompter {
 
 		} 
 
+		return numericInput;
+
 	}
 
-	/* Private methods */
 
 	private static void displayMenu() {
 		Map<Action, String> menu = Utility.generateMenu();
@@ -103,10 +130,8 @@ public class Prompter {
 		System.out.println("\n");
 	}
 
-	private static void showTeams(Team[] teams) throws SLOException {
-		if(teams.length == 0) {
-			throw new SLOException(SLErrorCode.SL0006, MessageTemplate.teamSizeEmpty);
-		}
+	private static void showTeams(Team[] teams) {
+		
 		for(int i = 0; i < teams.length; i++) {
 			Team team = teams[i];
 			System.out.printf("%d) %s%n", i+1, team) ;
