@@ -41,7 +41,20 @@ public class Executor {
 	private static void assignPlayerToTeam(Player[] players, Team[] teams) 
 		throws SLOException {
 			
-		Prompter.promptUserInputForMemberAssignment(players, teams);
+		Integer playerIndex = Prompter.getPlayerIndexFromUser(players);
+		System.out.printf("%s selected.%n%n", players[playerIndex].getName());
+
+		if(teams.length == 0) {
+			throw new SLOException(SLErrorCode.SL0006, MessageTemplate.teamSizeEmpty);
+		} else if (teams.length == 1) {
+			// TODO: automatically assign team if there is only one team available
+			return;
+		}
+
+		Integer teamIndex = Prompter.getTeamIndexFromUser(teams);
+		System.out.printf("%s selected.%n%n", teams[teamIndex]);
+
+
 	}
 
 

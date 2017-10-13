@@ -46,29 +46,7 @@ public class Prompter {
 
 	}
 
-	public static void promptUserInputForMemberAssignment(
-		Player[] players, Team[] teams) throws SLOException {
-		
-		Integer playerIndex = getPlayerIndexFromUser(players);
-		System.out.printf("%s selected.%n%n", players[playerIndex].getName());
-
-		if(teams.length == 0) {
-			throw new SLOException(SLErrorCode.SL0006, MessageTemplate.teamSizeEmpty);
-		} else if (teams.length == 1) {
-			// TODO: automatically assign team if there is only one team available
-			return;
-		}
-
-		Integer teamIndex = -1;
-
-		showTeams(teams);
-
-	}
-
-	/* Private methods */
-
-	private static Integer getPlayerIndexFromUser(Player[] players)
-		throws SLOException {
+	public static Integer getPlayerIndexFromUser(Player[] players) throws SLOException {
 
 		Integer playerIndex = -1;
 
@@ -84,6 +62,25 @@ public class Prompter {
 		return playerIndex;
 
 	}
+
+	public static Integer getTeamIndexFromUser(Team[] teams) throws SLOException {
+
+		Integer teamIndex = -1;
+
+		do {
+
+			System.out.println("Please select one of the following teams.");
+			showTeams(teams);
+			System.out.printf("Select a team [between 1 and %d]: ", teams.length);
+			teamIndex = getNumericInputFromUser() - 1;
+
+		} while(teamIndex < 0 || teamIndex >= teams.length);
+
+		return teamIndex;
+
+	}
+
+	/* Private methods */
 
 	private static Integer getNumericInputFromUser()
 		throws SLOException {
