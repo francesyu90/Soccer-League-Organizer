@@ -16,7 +16,7 @@ public class MessageTemplate {
 		Warning
 	*/
 	public static final String teamListSizeEmpty = "Currently, there is no team available. Please return to main menu to create one.";
-	public static final String playerListSizeEmpty = "Currently, there is no team member available for %s";
+	public static final String playerListSizeEmpty = "Currently, there is no team member assigned to %s";
 	public static final String playerListSizeFull = "Currently, %s is full. Please try again later.";
 
 }

@@ -26,6 +26,8 @@ public class Executor {
 				return teams;
 			case Add:
 				return assignPlayerToTeam(players, teams);
+			case Remove:
+				return removePlayerFromTeam(teams);
 			default:
 				return null;
 		}
@@ -58,6 +60,34 @@ public class Executor {
 		System.out.printf("%s selected.%n%n", teamList.get(teamIndex));
 
 		teamList.get(teamIndex).addPlayer(playerToBeAdded);
+		teams.setTeamList(teamList);
+		return teams;
+
+	}
+
+	private static Teams removePlayerFromTeam(Teams teams) throws SLOException {
+
+		List<Team> teamList = teams.getTeamList();
+		if(teamList.size() == 0) {
+			throw new SLOException(SLCode.SL0011, Severity.Warning, MessageTemplate.teamListSizeEmpty);
+		} 
+
+		Integer teamIndex = 0;
+		
+		if(teamList.size() > 1) {
+			teamIndex = Prompter.getTeamIndexFromUser(teamList.toArray(new Team[teamList.size()]));
+		}
+			
+		System.out.printf("%s selected.%n%n", teamList.get(teamIndex));
+
+		teamList.get(teamIndex).checkForPlayerListSize();
+
+		Player[] players = teamList.get(teamIndex).getPlayers();
+		Integer playerIndex = Prompter.getPlayerIndexFromUser(players);
+		Player playerToBeDeleted = players[playerIndex];
+		System.out.printf("%s selected.%n%n", playerToBeDeleted.getName());
+
+		teamList.get(teamIndex).removePlayer(playerToBeDeleted);
 		teams.setTeamList(teamList);
 		return teams;
 

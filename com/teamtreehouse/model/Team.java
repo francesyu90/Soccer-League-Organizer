@@ -41,24 +41,20 @@ public class Team {
 		return this.mCoach;
 	}
 
-	public Player[] getPlayers() {
+	public Player[] getPlayers() throws SLOException {
+		this.checkForPlayerListSize();
 		Player[] players = new Player[this.mPlayers.size()];
 		players = this.mPlayers.toArray(players);
 		return players;
 	}
 
-	public List<Player> getPlayersAsList() {
+	public List<Player> getPlayersAsList() throws SLOException {
+		this.checkForPlayerListSize();
 		return this.mPlayers;
 	}
 
 	public void removePlayer(Player playerToBeDeleted) throws SLOException {
-		if(this.mPlayers.size() == 0) {
-			throw new SLOException(
-				SLCode.SL0007, 
-				Severity.Warning, 
-				MessageTemplate.playerListSizeEmpty, 
-				this);
-		}
+		this.checkForPlayerListSize();
 		Boolean isDeleted = this.mPlayers.remove(playerToBeDeleted);
 		if(!isDeleted) {
 			throw new SLOException(
@@ -95,5 +91,15 @@ public class Team {
 
 	public String toDetailedStringWithTeamMembers() {
 		return String.format("%s [%s]", this, this.mPlayers);
+	}
+
+	public void checkForPlayerListSize() throws SLOException {
+		if(this.mPlayers.size() == 0) {
+			throw new SLOException(
+				SLCode.SL0007, 
+				Severity.Warning, 
+				MessageTemplate.playerListSizeEmpty, 
+				this);
+		}
 	}
 }
