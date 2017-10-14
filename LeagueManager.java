@@ -9,8 +9,10 @@ import com.teamtreehouse.utils.Executor;
 public class LeagueManager {
 
   public static void main(String[] args) {
-    Player[] players = Players.load();
-    System.out.printf("%n%nThere are currently %d registered players.%n%n", players.length);
+
+    Players players = new Players();
+    Player[] playerArr = players.getPlayers();
+    System.out.printf("%n%nThere are currently %d registered players.%n%n", playerArr.length);
 
     Teams teams = new Teams();
    
@@ -23,7 +25,7 @@ public class LeagueManager {
             if(option == null) {
                 continue;
             }
-            teams = Executor.execAction(option, teams, players);
+            teams = Executor.execAction(option, teams, playerArr);
 
     	} catch(SLOException sloe) {
 
