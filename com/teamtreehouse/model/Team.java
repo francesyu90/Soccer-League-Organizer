@@ -53,7 +53,7 @@ public class Team {
 		}
 		Boolean isDeleted = this.mPlayers.remove(playerToBeDeleted);
 		if(!isDeleted) {
-			throw new SLOException(SLCode.SL0008, playerRemoveFromTeam, player.getName(), this);
+			throw new SLOException(SLCode.SL0008, playerRemoveFromTeam, playerToBeDeleted.getName(), this);
 		}
 		return isDeleted;
 	}
