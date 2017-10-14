@@ -22,7 +22,7 @@ public class Prompter {
 			option = reader.readLine();
 		} catch(IOException ioe) {
 			ioe.printStackTrace();
-			throw new SLOException(SLErrorCode.SL0002, ioe.getMessage());
+			throw new SLOException(SLCode.SL0002, ioe.getMessage());
 		}
 
 		return option;
@@ -41,7 +41,7 @@ public class Prompter {
 
 		} catch(IOException ioe) {
 			ioe.printStackTrace();
-			throw new SLOException(SLErrorCode.SL0003, ioe.getMessage());
+			throw new SLOException(SLCode.SL0003, ioe.getMessage());
 		}
 
 	}
@@ -96,13 +96,13 @@ public class Prompter {
 
 			nfe.printStackTrace();
 			throw new SLOException(
-				SLErrorCode.SL0004, 
+				SLCode.SL0004, 
 				MessageTemplate.invalidInputForNumericValue, input);
 
 		} catch(IOException ioe) {
 
 			ioe.printStackTrace();
-			throw new SLOException(SLErrorCode.SL0005, ioe.getMessage());
+			throw new SLOException(SLCode.SL0005, ioe.getMessage());
 
 		} 
 
