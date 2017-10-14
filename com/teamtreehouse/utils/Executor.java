@@ -7,13 +7,18 @@ import java.util.Map;
 import com.teamtreehouse.model.Team;
 import com.teamtreehouse.model.Teams;
 import com.teamtreehouse.model.Player;
+import com.teamtreehouse.model.Players;
 
 public class Executor {
+
+	private static Players mPlayers;
 
 	public static Teams execAction(
 		String option, 
 		Teams teams,
-		Player[] players) throws SLOException {
+		Players players) throws SLOException {
+
+		mPlayers = players;
 
 		Action action = Action.findByKey(option);
 		Map<Action, String> menu = Utility.generateMenu();
@@ -22,16 +27,20 @@ public class Executor {
 
 		switch(action) {
 			case Create:
-				teams = createNewTeam(teams, players.length);
+				teams = createNewTeam(teams, mPlayers.getAvailablePlayersAsSet().size());
 				System.out.printf("%d team(s) in total.%n%n", teams.getTeamSet().size());
 				return teams;
 			case Add:
-				return assignPlayerToTeam(players, teams);
+				return assignPlayerToTeam(teams);
 			case Remove:
 				return removePlayerFromTeam(teams);
 			default:
 				return null;
 		}
+	}
+
+	public static Players getUpdatedPlayers() {
+		return mPlayers;
 	}
 
 	private static Teams createNewTeam(Teams teams, Integer playerSize) throws SLOException {
@@ -40,7 +49,7 @@ public class Executor {
 		return teams;
 	}
 
-	private static Teams assignPlayerToTeam(Player[] players, Teams teams) 
+	private static Teams assignPlayerToTeam(Teams teams) 
 		throws SLOException {
 
 		List<Team> teamList = new ArrayList<>(teams.getTeamSet());
@@ -51,8 +60,9 @@ public class Executor {
 				MessageTemplate.teamListSizeEmpty);
 		} 
 
-		Integer playerIndex = Prompter.getPlayerIndexFromUser(players);
-		Player playerToBeAdded = players[playerIndex];
+		Player[] playerArr = mPlayers.getPlayers();
+		Integer playerIndex = Prompter.getPlayerIndexFromUser(playerArr);
+		Player playerToBeAdded = playerArr[playerIndex];
 		System.out.printf("%s selected.%n%n", playerToBeAdded.getName());
 
 		Integer teamIndex = 0;
@@ -68,6 +78,8 @@ public class Executor {
 
 		team.addPlayer(playerToBeAdded);
 		teams.updateTeam(teamIndex, team);
+		mPlayers.removePlayer(playerToBeAdded);
+
 		return teams;
 
 	}
@@ -101,6 +113,9 @@ public class Executor {
 
 		team.removePlayer(playerToBeDeleted);
 		teams.updateTeam(teamIndex, team);
+
+		mPlayers.addPlayer(playerToBeDeleted);
+
 		return teams;
 
 	}

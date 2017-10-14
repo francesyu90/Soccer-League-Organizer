@@ -11,8 +11,7 @@ public class LeagueManager {
   public static void main(String[] args) {
 
     Players players = new Players();
-    Player[] playerArr = players.getPlayers();
-    System.out.printf("%n%nThere are currently %d registered players.%n%n", playerArr.length);
+    System.out.printf("%n%nThere are currently %d registered players.%n%n", players.getPlayers().length);
 
     Teams teams = new Teams();
    
@@ -25,7 +24,8 @@ public class LeagueManager {
             if(option == null) {
                 continue;
             }
-            teams = Executor.execAction(option, teams, playerArr);
+            teams = Executor.execAction(option, teams, players);
+            players = Executor.getUpdatedPlayers();
 
     	} catch(SLOException sloe) {
 
