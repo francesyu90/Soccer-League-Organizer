@@ -18,7 +18,10 @@ public class Teams {
 	}
 
 	public void addTeam(Team team, Integer playerSize) throws SLOException {
-		if((mTeamSet.size() + 1) > (playerSize / 11)) {
+		
+		Integer expectedNumOfTeams =  playerSize / Team.MAX_NUMBER_OF_PLAYER; 
+
+		if((mTeamSet.size() + 1) > expectedNumOfTeams) {
 			throw new SLOException(
 				SLCode.SL0014, 
 				MessageTemplate.teamListSizeExceeded, 

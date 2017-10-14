@@ -40,7 +40,11 @@ public class Player implements Comparable<Player>, Serializable {
   @Override
   public int compareTo(Player other) {
     if(this.equals(other)) return 0;
-    return this.firstName.compareTo(other.getFirstName());
+    if(!this.firstName.equals(other.getFirstName())) {
+       return this.firstName.compareTo(other.getFirstName());
+    }
+    return this.lastName.compareTo(other.getLastName());
+   
   }
 
   @Override
