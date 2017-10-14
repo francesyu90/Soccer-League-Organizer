@@ -13,13 +13,16 @@ public class MessageTemplate {
 	public static final String playerAddToTeam = "Cannot add player %s to %s";
 	public static final String teamRemoveFromTeam = "Cannot remove %s";
 	public static final String teamAddToTeam = "Cannot add %s";
+	public static final String playerAddToSet = "Cannot add player %s";
+	public static final String playerRemoveFromSet = "Cannot remove player %s";
 
 	/*
 		Warning
 	*/
-	public static final String teamListSizeEmpty = "Currently, there is no team available. Please return to main menu to create one.";
+	public static final String teamListSizeEmpty = "Currently, there is no team available. Please return to main menu to create one";
 	public static final String playerListSizeEmpty = "Currently, there is no team member assigned to %s";
 	public static final String playerListSizeFull = "Currently, %s is full. Please try again later.";
 	public static final String teamListSizeExceeded = "No more team is allowed. [ #. of teams: %d, #. of players: %d]";
+	public static final String unexpectedPlayerFound = "Player %s is found unexpectedly.";
 
 }

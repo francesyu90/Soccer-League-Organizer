@@ -4,12 +4,17 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.TreeSet;
 
+import com.teamtreehouse.utils.MessageTemplate;
+import com.teamtreehouse.utils.Severity;
+import com.teamtreehouse.utils.SLCode;
+import com.teamtreehouse.utils.SLOException;
+
 public class Players {
 
     private Set<Player> mPlayerSet;
 
     public Players() {
-        this.mPlayerSet = new TreeSet<>(Arrays.asList(load()));
+        loadAllPlayers();
     }
 
     public Player[] getPlayers() {
@@ -20,6 +25,48 @@ public class Players {
 
     public Set<Player> getPlayersAsSet() {
         return this.mPlayerSet;
+    }
+
+    public void addPlayer(Player player) throws SLOException {
+        if(!Arrays.asList(load()).contains(player)) {
+            throw new SLOException(
+                SLCode.SL0015, 
+                Severity.Warning,
+                MessageTemplate.unexpectedPlayerFound,
+                player.getName());
+        }
+        Boolean isAdded = this.mPlayerSet.add(player);
+        if(!isAdded) {
+            throw new SLOException(
+                SLCode.SL0016, 
+                MessageTemplate.playerAddToSet, 
+                player.getName());
+        }
+    }
+
+    public void removePlayer(Player player) throws SLOException {
+        if(!Arrays.asList(load()).contains(player)) {
+            throw new SLOException(
+                SLCode.SL0017, 
+                Severity.Warning,
+                MessageTemplate.unexpectedPlayerFound,
+                player.getName());
+        }
+        Boolean isRemoved = this.mPlayerSet.remove(player);
+        if(!isRemoved) {
+            throw new SLOException(
+                SLCode.SL0018, 
+                MessageTemplate.playerRemoveFromSet, 
+                player.getName());
+        }
+    }
+
+    private void loadAllPlayers() {
+      this.mPlayerSet = this.getAvailablePlayersAsSet();
+    }
+
+    public Set<Player> getAvailablePlayersAsSet() {
+        return new TreeSet<>(Arrays.asList(load()));
     }
 
     private static Player[] load() {
