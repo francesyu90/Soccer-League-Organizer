@@ -99,6 +99,13 @@ public class Prompter {
 		System.out.println("\n");
 	}
 
+	public static void showCountByHeightReport(Map<Integer, Integer> countByHeightMap) {
+		for (Map.Entry<Integer, Integer> entry : countByHeightMap.entrySet()) {
+			System.out.printf("%d inches: %d player(s)%n", entry.getKey(), entry.getValue());
+		}
+		System.out.println("\n");
+	}
+
 	/* Private methods */
 
 

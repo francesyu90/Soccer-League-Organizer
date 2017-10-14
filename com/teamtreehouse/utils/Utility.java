@@ -33,20 +33,23 @@ public class Utility {
 	  	return menu;
 	}
 
-	public static Player[] generatePlayersByHeight(Set<Player> playerSet) {
-
-		Map<Integer, TreeSet<Player>> heightPlayerMap = generateHeightPlayerMap(playerSet);
+	public static Player[] generatePlayersByHeight(
+		Map<Integer, TreeSet<Player>> heightPlayerMap, 
+		Integer min, 
+		Integer max) {
 		
 		List<Player> resultList = new ArrayList<>();
 
-		for (Map.Entry<Integer, TreeSet<Player>> entry: heightPlayerMap.entrySet()) {
-			resultList.addAll(entry.getValue());
+		for(Integer key = min; key <= max; key++) {
+			if(heightPlayerMap.containsKey(key)) {
+				resultList.addAll(heightPlayerMap.get(key));
+			}
 		}
 
 		return resultList.toArray(new Player[resultList.size()]);
 	}
 
-	private static Map<Integer, TreeSet<Player>> generateHeightPlayerMap(Set<Player> playerSet) {
+	public static Map<Integer, TreeSet<Player>> generateHeightPlayerMap(Set<Player> playerSet) {
 
 		Map<Integer, TreeSet<Player>> heightPlayerMap = new TreeMap<>();
 
@@ -61,6 +64,18 @@ public class Utility {
 		}
 
 		return heightPlayerMap;	
+	}
+
+	public static Map<Integer, Integer> generateCountByHeightReport(
+		Map<Integer, TreeSet<Player>> heightPlayerMap) {
+
+		Map<Integer, Integer> resultMap = new TreeMap<>();
+		for (Map.Entry<Integer, TreeSet<Player>> entry: heightPlayerMap.entrySet()) {
+    		resultMap.put(entry.getKey(), entry.getValue().size());
+		}
+
+		return resultMap;
+
 	}
 
 }

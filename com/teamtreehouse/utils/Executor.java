@@ -3,6 +3,7 @@ package com.teamtreehouse.utils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeSet;
 
 import com.teamtreehouse.model.Team;
 import com.teamtreehouse.model.Teams;
@@ -144,10 +145,33 @@ public class Executor {
 
 		team.checkForPlayerListSize();
 
-		Player[] players = Utility.generatePlayersByHeight(team.getPlayersAsSet());
+		Map<Integer, TreeSet<Player>> heightPlayerMap = Utility.generateHeightPlayerMap(team.getPlayersAsSet());
 
+		Integer min = 35;
+		Integer max = 40;
+		displayerPlayersByHeightGroupByRange(heightPlayerMap, min, max);
+
+		min = 41;
+		max = 46;
+		displayerPlayersByHeightGroupByRange(heightPlayerMap, min, max);
+
+		min = 47;
+		max = 50;
+		displayerPlayersByHeightGroupByRange(heightPlayerMap, min, max);
+
+		System.out.println("*******************");
+		Map<Integer, Integer> countByHeightMap = Utility.generateCountByHeightReport(heightPlayerMap);
+		Prompter.showCountByHeightReport(countByHeightMap);
+	}
+
+	private static void displayerPlayersByHeightGroupByRange(
+		Map<Integer, TreeSet<Player>> heightPlayerMap, 
+		Integer min, 
+		Integer max) throws SLOException{
+
+		Player[] players = Utility.generatePlayersByHeight(heightPlayerMap, min, max);
+		System.out.printf("Height range (%d - %d):%n", min, max);
 		Prompter.showPlayers(players);
-
 	}
 
 
