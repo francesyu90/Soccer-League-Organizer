@@ -22,7 +22,7 @@ public class Executor {
 
 		switch(action) {
 			case Create:
-				teams = createNewTeam(teams);
+				teams = createNewTeam(teams, players.length);
 				System.out.printf("%d team(s) in total.%n%n", teams.getTeamSet().size());
 				return teams;
 			case Add:
@@ -34,9 +34,9 @@ public class Executor {
 		}
 	}
 
-	private static Teams createNewTeam(Teams teams) throws SLOException {
+	private static Teams createNewTeam(Teams teams, Integer playerSize) throws SLOException {
 		Team team = Prompter.promptUserInputForTeamCreation();
-		teams.addTeam(team);
+		teams.addTeam(team, playerSize);
 		return teams;
 	}
 

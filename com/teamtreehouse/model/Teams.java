@@ -17,8 +17,18 @@ public class Teams {
 		this.mTeamSet = new TreeSet<>();
 	}
 
-	public void addTeam(Team team) {
-		this.mTeamSet.add(team);
+	public void addTeam(Team team, Integer playerSize) throws SLOException {
+		if((mTeamSet.size() + 1) > (playerSize / 11)) {
+			throw new SLOException(
+				SLCode.SL0014, 
+				MessageTemplate.teamListSizeExceeded, 
+				mTeamSet.size(),
+				playerSize);
+		}
+		Boolean isAdded = this.mTeamSet.add(team);
+		if(!isAdded) {
+			throw new SLOException(SLCode.SL0013, MessageTemplate.teamAddToTeam, team);
+		}
 		System.out.printf("%s added.%n%n", team);
 	}
 
