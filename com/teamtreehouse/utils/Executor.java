@@ -9,7 +9,7 @@ import com.teamtreehouse.model.Player;
 
 public class Executor {
 
-	public static void execAction(
+	public static Teams execAction(
 		String option, 
 		Teams teams,
 		Player[] players) throws SLOException {
@@ -22,13 +22,12 @@ public class Executor {
 		switch(action) {
 			case Create:
 				teams = createNewTeam(teams);
-				System.out.printf("%d team(s) in total.%n%n", teams.getTeams().size());
-				break;
+				System.out.printf("%d team(s) in total.%n%n", teams.getTeamList().size());
+				return teams;
 			case Add:
-				List<Team> teamList = teams.getTeams();
-				assignPlayerToTeam(players, teamList.toArray(new Team[teamList.size()]));
-				break;
+				return assignPlayerToTeam(players, teams);
 			default:
+				return null;
 		}
 	}
 
@@ -38,22 +37,29 @@ public class Executor {
 		return teams;
 	}
 
-	private static void assignPlayerToTeam(Player[] players, Team[] teams) 
+	private static Teams assignPlayerToTeam(Player[] players, Teams teams) 
 		throws SLOException {
-			
-		Integer playerIndex = Prompter.getPlayerIndexFromUser(players);
-		System.out.printf("%s selected.%n%n", players[playerIndex].getName());
 
-		if(teams.length == 0) {
+		List<Team> teamList = teams.getTeamList();
+		if(teamList.size() == 0) {
 			throw new SLOException(SLCode.SL0006, Severity.Warning, MessageTemplate.teamListSizeEmpty);
-		} else if (teams.length == 1) {
-			// TODO: automatically assign team if there is only one team available
-			return;
+		} 
+
+		Integer playerIndex = Prompter.getPlayerIndexFromUser(players);
+		Player playerToBeAdded = players[playerIndex];
+		System.out.printf("%s selected.%n%n", playerToBeAdded.getName());
+
+		Integer teamIndex = 0;
+		
+		if(teamList.size() > 1) {
+			teamIndex = Prompter.getTeamIndexFromUser(teamList.toArray(new Team[teamList.size()]));
 		}
+			
+		System.out.printf("%s selected.%n%n", teamList.get(teamIndex));
 
-		Integer teamIndex = Prompter.getTeamIndexFromUser(teams);
-		System.out.printf("%s selected.%n%n", teams[teamIndex]);
-
+		teamList.get(teamIndex).addPlayer(playerToBeAdded);
+		teams.setTeamList(teamList);
+		return teams;
 
 	}
 

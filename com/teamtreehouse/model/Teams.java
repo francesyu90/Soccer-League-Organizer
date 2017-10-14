@@ -5,18 +5,25 @@ import java.util.List;
 
 public class Teams {
 
-	private List<Team> teams;
+	private List<Team> mTeamList;
 
 	public Teams() {
-		this.teams = new ArrayList<>();
+		this.mTeamList = new ArrayList<>();
 	}
 
 	public void addTeam(Team team) {
-		this.teams.add(team);
+		this.mTeamList.add(team);
 		System.out.printf("%s added.%n%n", team);
 	}
 
-	public List<Team> getTeams() {
-		return this.teams;
+	public void setTeamList(List<Team> teamList) {
+		if(teamList == null) {
+			return;
+		}
+		this.mTeamList = teamList;
+	}
+
+	public List<Team> getTeamList() {
+		return this.mTeamList;
 	}
 }

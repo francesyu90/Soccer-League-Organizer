@@ -1,5 +1,6 @@
 package com.teamtreehouse.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.teamtreehouse.utils.Severity;
@@ -17,6 +18,7 @@ public class Team {
 	public Team(String teamName, String coach) {
 		this.mTeamName = teamName;
 		this.mCoach = coach;
+		this.mPlayers = new ArrayList<>();
 	}
 
 	public void setTeamName(String teamName) {
@@ -49,7 +51,7 @@ public class Team {
 		return this.mPlayers;
 	}
 
-	public Boolean removePlayer(Player playerToBeDeleted) {
+	public void removePlayer(Player playerToBeDeleted) throws SLOException {
 		if(this.mPlayers.size() == 0) {
 			throw new SLOException(
 				SLCode.SL0007, 
@@ -65,10 +67,9 @@ public class Team {
 				playerToBeDeleted.getName(), 
 				this);
 		}
-		return isDeleted;
 	}
 
-	public Boolean addPlayer(Player playerToAdded) {
+	public void addPlayer(Player playerToBeAdded) throws SLOException {
 		if(this.mPlayers.size() == MAX_NUMBER_OF_PLAYER) {
 			throw new SLOException(
 				SLCode.SL0009, 
@@ -84,11 +85,15 @@ public class Team {
 				playerToBeAdded,
 				this);
 		}
-		return isAdded;
+		System.out.println(this.toDetailedStringWithTeamMembers());
 	}
 
 	@Override
 	public String toString() {
-		return String.format("Team %s coached by %s", mTeamName, mCoach);
+		return String.format("team %s coached by %s", mTeamName, mCoach);
+	}
+
+	public String toDetailedStringWithTeamMembers() {
+		return String.format("%s [%s]", this, this.mPlayers);
 	}
 }

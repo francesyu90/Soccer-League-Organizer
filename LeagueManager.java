@@ -23,7 +23,7 @@ public class LeagueManager {
             if(option == null) {
                 continue;
             }
-            Executor.execAction(option, teams, players);
+            teams = Executor.execAction(option, teams, players);
 
     	} catch(SLOException sloe) {
 
