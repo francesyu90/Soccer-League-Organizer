@@ -7,6 +7,7 @@ public class MessageTemplate {
 	*/
 	public static final String invalidInputForNumericValue = "Cannot convert a non-numeric value (%s) to numeric";
 	public static final String invalidInputForIndex = "Numeric value (%d) is an invalid index";
+	public static final String nullArrayForProcessing = "Cannot process a null array";
 
 	public static final String nullActionByDescritpion = "Cannot get enum value of type Action given %s";
 	public static final String playerRemoveFromTeam = "Cannot remove player %s from %s";

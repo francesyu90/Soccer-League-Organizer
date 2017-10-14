@@ -83,7 +83,6 @@ public class Team implements Comparable<Team>, Serializable {
 				playerToBeAdded,
 				this);
 		}
-		System.out.println(this.toDetailedStringWithTeamMembers());
 	}
 
 	@Override

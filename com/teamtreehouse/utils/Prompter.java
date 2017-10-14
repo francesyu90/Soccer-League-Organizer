@@ -48,6 +48,10 @@ public class Prompter {
 
 	public static Integer getPlayerIndexFromUser(Player[] players) throws SLOException {
 
+		if(players == null) {
+			throw new SLOException(SLCode.SL0021, MessageTemplate.nullArrayForProcessing);
+		}
+
 		Integer playerIndex = -1;
 
 		do {
@@ -65,6 +69,10 @@ public class Prompter {
 
 	public static Integer getTeamIndexFromUser(Team[] teams) throws SLOException {
 
+		if(teams == null) {
+			throw new SLOException(SLCode.SL0022, MessageTemplate.nullArrayForProcessing);
+		}
+
 		Integer teamIndex = -1;
 
 		do {
@@ -80,10 +88,21 @@ public class Prompter {
 
 	}
 
+	public static void showPlayers(Player[] players) throws SLOException {
+		if(players == null) {
+			throw new SLOException(SLCode.SL0020, MessageTemplate.nullArrayForProcessing);
+		}
+		for(int i = 0; i < players.length; i++) {
+			Player player = players[i];
+			System.out.printf("%d.) %s%n", i+1, player);
+		}
+		System.out.println("\n");
+	}
+
 	/* Private methods */
 
-	private static Integer getNumericInputFromUser()
-		throws SLOException {
+
+	private static Integer getNumericInputFromUser() throws SLOException {
 
 		String input = null;
 		Integer numericInput = -1;
@@ -110,7 +129,6 @@ public class Prompter {
 
 	}
 
-
 	private static void displayMenu() {
 		Map<Action, String> menu = Utility.generateMenu();
 		System.out.println("Menu");
@@ -119,19 +137,11 @@ public class Prompter {
     	}
 	}
 
-	private static void showPlayers(Player[] players) {
-		for(int i = 0; i < players.length; i++) {
-			Player player = players[i];
-			System.out.printf("%d) %s%n", i+1, player);
-		}
-		System.out.println("\n");
-	}
-
 	private static void showTeams(Team[] teams) {
 		
 		for(int i = 0; i < teams.length; i++) {
 			Team team = teams[i];
-			System.out.printf("%d) %s%n", i+1, team) ;
+			System.out.printf("%d.) %s%n", i+1, team) ;
 		}
 		System.out.println("\n");
 	}

@@ -34,8 +34,10 @@ public class Executor {
 				return assignPlayerToTeam(teams);
 			case Remove:
 				return removePlayerFromTeam(teams);
+			case Report:
+				viewReportByHeight(teams);
 			default:
-				return null;
+				return teams;
 		}
 	}
 
@@ -117,6 +119,34 @@ public class Executor {
 		mPlayers.addPlayer(playerToBeDeleted);
 
 		return teams;
+
+	}
+
+	private static void viewReportByHeight(Teams teams) throws SLOException {
+
+		List<Team> teamList = new ArrayList<>(teams.getTeamSet());
+		if(teamList.size() == 0) {
+			throw new SLOException(
+				SLCode.SL0019, 
+				Severity.Warning, 
+				MessageTemplate.teamListSizeEmpty);
+		} 
+
+		Integer teamIndex = 0;
+		
+		if(teamList.size() > 1) {
+			teamIndex = Prompter.getTeamIndexFromUser(
+				teamList.toArray(new Team[teamList.size()]));
+		}
+
+		Team team = teamList.get(teamIndex);
+		System.out.printf("%s selected.%n%n", team);
+
+		team.checkForPlayerListSize();
+
+		Player[] players = Utility.generatePlayersByHeight(team.getPlayersAsSet());
+
+		Prompter.showPlayers(players);
 
 	}
 
