@@ -1,14 +1,16 @@
 package com.teamtreehouse.model;
 
-import java.util.TreeSet;
+import java.io.Serializable;
 import java.util.Set;
+import java.util.TreeSet;
 
 import com.teamtreehouse.utils.Severity;
 import com.teamtreehouse.utils.SLCode;
 import com.teamtreehouse.utils.SLOException;
 import com.teamtreehouse.utils.MessageTemplate;
 
-public class Team {
+public class Team implements Comparable<Team>, Serializable {
+	private static final long serialVersionUID = 2L;
 
 	private String mTeamName;
 	private String mCoach;
@@ -102,4 +104,23 @@ public class Team {
 				this);
 		}
 	}
+
+	@Override
+	public int compareTo(Team other) {
+		if(this.equals(other)) return 0;
+		return this.mTeamName.compareTo(other.getTeamName());
+  	}
+
+  	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof Team)) return false;
+
+	    Team team = (Team) o;
+
+	    if (mTeamName != team.getTeamName()) return false;
+	    if (mCoach != team.getCoach()) return false;
+	    return mPlayers.equals(team.mPlayers);
+
+  }
 }

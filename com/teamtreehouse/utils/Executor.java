@@ -1,5 +1,6 @@
 package com.teamtreehouse.utils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -22,7 +23,7 @@ public class Executor {
 		switch(action) {
 			case Create:
 				teams = createNewTeam(teams);
-				System.out.printf("%d team(s) in total.%n%n", teams.getTeamList().size());
+				System.out.printf("%d team(s) in total.%n%n", teams.getTeamSet().size());
 				return teams;
 			case Add:
 				return assignPlayerToTeam(players, teams);
@@ -42,9 +43,12 @@ public class Executor {
 	private static Teams assignPlayerToTeam(Player[] players, Teams teams) 
 		throws SLOException {
 
-		List<Team> teamList = teams.getTeamList();
+		List<Team> teamList = new ArrayList<>(teams.getTeamSet());
 		if(teamList.size() == 0) {
-			throw new SLOException(SLCode.SL0006, Severity.Warning, MessageTemplate.teamListSizeEmpty);
+			throw new SLOException(
+				SLCode.SL0006, 
+				Severity.Warning, 
+				MessageTemplate.teamListSizeEmpty);
 		} 
 
 		Integer playerIndex = Prompter.getPlayerIndexFromUser(players);
@@ -54,7 +58,8 @@ public class Executor {
 		Integer teamIndex = 0;
 		
 		if(teamList.size() > 1) {
-			teamIndex = Prompter.getTeamIndexFromUser(teamList.toArray(new Team[teamList.size()]));
+			teamIndex = Prompter.getTeamIndexFromUser(
+				teamList.toArray(new Team[teamList.size()]));
 		}
 
 		Team team = teamList.get(teamIndex);
@@ -69,15 +74,19 @@ public class Executor {
 
 	private static Teams removePlayerFromTeam(Teams teams) throws SLOException {
 
-		List<Team> teamList = teams.getTeamList();
+		List<Team> teamList = new ArrayList<>(teams.getTeamSet());
 		if(teamList.size() == 0) {
-			throw new SLOException(SLCode.SL0011, Severity.Warning, MessageTemplate.teamListSizeEmpty);
+			throw new SLOException(
+				SLCode.SL0011, 
+				Severity.Warning, 
+				MessageTemplate.teamListSizeEmpty);
 		} 
 
 		Integer teamIndex = 0;
 		
 		if(teamList.size() > 1) {
-			teamIndex = Prompter.getTeamIndexFromUser(teamList.toArray(new Team[teamList.size()]));
+			teamIndex = Prompter.getTeamIndexFromUser(
+				teamList.toArray(new Team[teamList.size()]));
 		}
 		
 		Team team = teamList.get(teamIndex);
