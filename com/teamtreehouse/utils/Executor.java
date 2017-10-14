@@ -45,7 +45,7 @@ public class Executor {
 		System.out.printf("%s selected.%n%n", players[playerIndex].getName());
 
 		if(teams.length == 0) {
-			throw new SLOException(SLCode.SL0006, Severity.Warning, MessageTemplate.teamSizeEmpty);
+			throw new SLOException(SLCode.SL0006, Severity.Warning, MessageTemplate.teamListSizeEmpty);
 		} else if (teams.length == 1) {
 			// TODO: automatically assign team if there is only one team available
 			return;

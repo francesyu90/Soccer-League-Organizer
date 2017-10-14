@@ -2,8 +2,10 @@ package com.teamtreehouse.model;
 
 import java.util.List;
 
+import com.teamtreehouse.utils.Severity;
 import com.teamtreehouse.utils.SLCode;
 import com.teamtreehouse.utils.SLOException;
+import com.teamtreehouse.utils.MessageTemplate;
 
 public class Team {
 
@@ -49,17 +51,41 @@ public class Team {
 
 	public Boolean removePlayer(Player playerToBeDeleted) {
 		if(this.mPlayers.size() == 0) {
-			throw new SLOException(SLCode.SL0007, Severity.Warning, playerListSizeEmpty, this);
+			throw new SLOException(
+				SLCode.SL0007, 
+				Severity.Warning, 
+				MessageTemplate.playerListSizeEmpty, 
+				this);
 		}
 		Boolean isDeleted = this.mPlayers.remove(playerToBeDeleted);
 		if(!isDeleted) {
-			throw new SLOException(SLCode.SL0008, playerRemoveFromTeam, playerToBeDeleted.getName(), this);
+			throw new SLOException(
+				SLCode.SL0008, 
+				MessageTemplate.playerRemoveFromTeam, 
+				playerToBeDeleted.getName(), 
+				this);
 		}
 		return isDeleted;
 	}
 
-	//TODO: add & remove team members
-
+	public Boolean addPlayer(Player playerToAdded) {
+		if(this.mPlayers.size() == MAX_NUMBER_OF_PLAYER) {
+			throw new SLOException(
+				SLCode.SL0009, 
+				Severity.Warning,
+				MessageTemplate.playerListSizeFull, 
+				this);
+		}
+		Boolean isAdded = this.mPlayers.add(playerToBeAdded);
+		if(!isAdded) {
+			throw new SLOException(
+				SLCode.SL0010,
+				MessageTemplate.playerAddToTeam,
+				playerToBeAdded,
+				this);
+		}
+		return isAdded;
+	}
 
 	@Override
 	public String toString() {
