@@ -1,7 +1,7 @@
 package com.teamtreehouse.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.TreeSet;
+import java.util.Set;
 
 import com.teamtreehouse.utils.Severity;
 import com.teamtreehouse.utils.SLCode;
@@ -13,12 +13,12 @@ public class Team {
 	private String mTeamName;
 	private String mCoach;
 	public static final Integer MAX_NUMBER_OF_PLAYER = 11;
-	private List<Player> mPlayers;
+	private Set<Player> mPlayers;
 
 	public Team(String teamName, String coach) {
 		this.mTeamName = teamName;
 		this.mCoach = coach;
-		this.mPlayers = new ArrayList<>();
+		this.mPlayers = new TreeSet<>();
 	}
 
 	public void setTeamName(String teamName) {
@@ -29,7 +29,7 @@ public class Team {
 		this.mCoach = coach;
 	}
 
-	public void setTeams(List<Player> players) {
+	public void setTeams(Set<Player> players) {
 		this.mPlayers = players;
 	}
 
@@ -48,7 +48,7 @@ public class Team {
 		return players;
 	}
 
-	public List<Player> getPlayersAsList() throws SLOException {
+	public Set<Player> getPlayersAsSet() throws SLOException {
 		this.checkForPlayerListSize();
 		return this.mPlayers;
 	}
