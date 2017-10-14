@@ -3,6 +3,10 @@ package com.teamtreehouse.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.teamtreehouse.utils.MessageTemplate;
+import com.teamtreehouse.utils.SLCode;
+import com.teamtreehouse.utils.SLOException;
+
 public class Teams {
 
 	private List<Team> mTeamList;
@@ -25,5 +29,17 @@ public class Teams {
 
 	public List<Team> getTeamList() {
 		return this.mTeamList;
+	}
+
+	public void updateTeam(Integer teamIndex, Team team) throws SLOException {
+		if(team == null) {
+			return;
+		}
+
+		if(teamIndex < 0 || teamIndex >= this.mTeamList.size()) {
+			throw new SLOException(SLCode.SL0012, MessageTemplate.invalidInputForIndex, teamIndex);
+		}
+
+		this.mTeamList.set(teamIndex, team);
 	}
 }

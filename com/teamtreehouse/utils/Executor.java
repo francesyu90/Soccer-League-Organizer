@@ -56,11 +56,13 @@ public class Executor {
 		if(teamList.size() > 1) {
 			teamIndex = Prompter.getTeamIndexFromUser(teamList.toArray(new Team[teamList.size()]));
 		}
-			
-		System.out.printf("%s selected.%n%n", teamList.get(teamIndex));
 
-		teamList.get(teamIndex).addPlayer(playerToBeAdded);
-		teams.setTeamList(teamList);
+		Team team = teamList.get(teamIndex);
+			
+		System.out.printf("%s selected.%n%n", team);
+
+		team.addPlayer(playerToBeAdded);
+		teams.updateTeam(teamIndex, team);
 		return teams;
 
 	}
@@ -77,18 +79,19 @@ public class Executor {
 		if(teamList.size() > 1) {
 			teamIndex = Prompter.getTeamIndexFromUser(teamList.toArray(new Team[teamList.size()]));
 		}
-			
-		System.out.printf("%s selected.%n%n", teamList.get(teamIndex));
+		
+		Team team = teamList.get(teamIndex);
+		System.out.printf("%s selected.%n%n", team);
 
-		teamList.get(teamIndex).checkForPlayerListSize();
+		team.checkForPlayerListSize();
 
-		Player[] players = teamList.get(teamIndex).getPlayers();
+		Player[] players = team.getPlayers();
 		Integer playerIndex = Prompter.getPlayerIndexFromUser(players);
 		Player playerToBeDeleted = players[playerIndex];
 		System.out.printf("%s selected.%n%n", playerToBeDeleted.getName());
 
-		teamList.get(teamIndex).removePlayer(playerToBeDeleted);
-		teams.setTeamList(teamList);
+		team.removePlayer(playerToBeDeleted);
+		teams.updateTeam(teamIndex, team);
 		return teams;
 
 	}
