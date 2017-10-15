@@ -78,4 +78,35 @@ public class Utility {
 
 	}
 
+	public static Map<ExperienceLevel, TreeSet<Player>> generateExperienceLevelPlayerMap(
+		Set<Player> playerSet) throws SLOException {
+
+		Map<ExperienceLevel, TreeSet<Player>> resultMap = new TreeMap<>();
+		for(Player player: playerSet) {
+			ExperienceLevel experienceLevel = 
+				ExperienceLevel.findByKey(player.isPreviousExperience());
+			TreeSet<Player> playerSetByExperienceLevel = resultMap.remove(experienceLevel);
+			if(playerSetByExperienceLevel == null) {
+				playerSetByExperienceLevel = new TreeSet<>();
+			}
+			playerSetByExperienceLevel.add(player);
+			resultMap.put(experienceLevel, playerSetByExperienceLevel);
+		}
+
+		return resultMap;
+
+	}
+
+	public static Map<ExperienceLevel, Integer> generateCountByExperienceLevelReport(
+		Map<ExperienceLevel, TreeSet<Player>> experienceLevelPlayerMap) {
+
+		Map<ExperienceLevel, Integer> resultMap = new TreeMap<>();
+		for (Map.Entry<ExperienceLevel, TreeSet<Player>> entry: experienceLevelPlayerMap.entrySet()) {
+    		resultMap.put(entry.getKey(), entry.getValue().size());
+		}
+
+		return resultMap;
+
+	}
+
 }

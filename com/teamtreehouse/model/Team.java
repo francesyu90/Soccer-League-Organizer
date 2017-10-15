@@ -43,6 +43,10 @@ public class Team implements Comparable<Team>, Serializable {
 		return this.mCoach;
 	}
 
+	public Integer getPlayerCount() {
+		return this.mPlayers.size();
+	}
+
 	public Player[] getPlayers() throws SLOException {
 		this.checkForPlayerListSize();
 		Player[] players = new Player[this.mPlayers.size()];

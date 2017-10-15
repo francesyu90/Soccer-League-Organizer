@@ -37,6 +37,8 @@ public class Executor {
 				return removePlayerFromTeam(teams);
 			case Report:
 				viewReportByHeight(teams);
+			case Balance:
+				viewLeagueBalanceReport(teams);
 			default:
 				return teams;
 		}
@@ -149,22 +151,22 @@ public class Executor {
 
 		Integer min = 35;
 		Integer max = 40;
-		displayerPlayersByHeightGroupByRange(heightPlayerMap, min, max);
+		displayPlayersByHeightGroupByRange(heightPlayerMap, min, max);
 
 		min = 41;
 		max = 46;
-		displayerPlayersByHeightGroupByRange(heightPlayerMap, min, max);
+		displayPlayersByHeightGroupByRange(heightPlayerMap, min, max);
 
 		min = 47;
 		max = 50;
-		displayerPlayersByHeightGroupByRange(heightPlayerMap, min, max);
+		displayPlayersByHeightGroupByRange(heightPlayerMap, min, max);
 
 		System.out.println("*******************");
 		Map<Integer, Integer> countByHeightMap = Utility.generateCountByHeightReport(heightPlayerMap);
 		Prompter.showCountByHeightReport(countByHeightMap);
 	}
 
-	private static void displayerPlayersByHeightGroupByRange(
+	private static void displayPlayersByHeightGroupByRange(
 		Map<Integer, TreeSet<Player>> heightPlayerMap, 
 		Integer min, 
 		Integer max) throws SLOException{
@@ -172,6 +174,33 @@ public class Executor {
 		Player[] players = Utility.generatePlayersByHeight(heightPlayerMap, min, max);
 		System.out.printf("Height range (%d - %d):%n", min, max);
 		Prompter.showPlayers(players);
+	}
+
+	private static void viewLeagueBalanceReport(Teams teams) throws SLOException {
+
+		List<Team> teamList = new ArrayList<>(teams.getTeamSet());
+		if(teamList.size() == 0) {
+			throw new SLOException(
+				SLCode.SL0023, 
+				Severity.Warning, 
+				MessageTemplate.teamListSizeEmpty);
+		} 
+
+		for(Team team: teamList) {
+
+			System.out.println("*******************");
+			System.out.printf("%s%n", team);
+			Map<ExperienceLevel, TreeSet<Player>> experienceLevelPlayerMap = 
+				Utility.generateExperienceLevelPlayerMap(team.getPlayersAsSet());
+			Prompter.showPlayersByExperienceLevel(experienceLevelPlayerMap);
+			Map<ExperienceLevel, Integer> report = 
+				Utility.generateCountByExperienceLevelReport(experienceLevelPlayerMap);
+			Prompter.showAverageExperienceLevel(report, team.getPlayerCount());
+			System.out.println();
+
+		}
+		System.out.println("\n");
+
 	}
 
 

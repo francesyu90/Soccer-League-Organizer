@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 import com.teamtreehouse.model.Team;
 import com.teamtreehouse.model.Player;
@@ -100,10 +102,31 @@ public class Prompter {
 	}
 
 	public static void showCountByHeightReport(Map<Integer, Integer> countByHeightMap) {
+
 		for (Map.Entry<Integer, Integer> entry : countByHeightMap.entrySet()) {
 			System.out.printf("%d inches: %d player(s)%n", entry.getKey(), entry.getValue());
 		}
 		System.out.println("\n");
+	}
+
+	public static void showPlayersByExperienceLevel(
+		Map<ExperienceLevel, TreeSet<Player>> experienceLevelPlayerMap) {
+
+		for (Map.Entry<ExperienceLevel, TreeSet<Player>> entry : experienceLevelPlayerMap.entrySet()) {
+			System.out.printf("%s: %s%n", entry.getKey(), entry.getValue());
+		}
+		System.out.println("\n");
+	}
+
+	public static void showAverageExperienceLevel(
+		Map<ExperienceLevel, Integer> report, Integer teamSize) {
+
+		Integer experiencedCount = report.get(ExperienceLevel.EXPERIENCED);
+		if(experiencedCount == null) {
+			experiencedCount = 0;
+		}
+		Double average = (double)experiencedCount / teamSize * 100;
+		System.out.printf("The average experience level for this team is %1.0f%%", average);
 	}
 
 	/* Private methods */

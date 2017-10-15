@@ -10,6 +10,7 @@ public class MessageTemplate {
 	public static final String nullArrayForProcessing = "Cannot process a null array";
 
 	public static final String nullActionByDescritpion = "Cannot get enum value of type Action given %s";
+	public static final String nullExperienceLevelByValue = "Cannot get enum value of type ExperienceLevel given %s";
 	public static final String playerRemoveFromTeam = "Cannot remove player %s from %s";
 	public static final String playerAddToTeam = "Cannot add player %s to %s";
 	public static final String teamRemoveFromTeam = "Cannot remove %s";

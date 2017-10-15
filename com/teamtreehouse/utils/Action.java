@@ -38,7 +38,7 @@ public enum Action {
 				MessageTemplate.nullActionByDescritpion, 
 				description);
 		}
-		return map.get(description);
+		return action;
 	}
 }
 
