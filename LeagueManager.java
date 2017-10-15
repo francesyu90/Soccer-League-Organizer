@@ -24,6 +24,9 @@ public class LeagueManager {
             if(option == null) {
                 continue;
             }
+            if(option.equalsIgnoreCase(Action.Quit.getDescription())) {
+                break;
+            }
             teams = Executor.execAction(option, teams, players);
             players = Executor.getUpdatedPlayers();
 

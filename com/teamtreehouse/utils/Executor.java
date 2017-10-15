@@ -37,11 +37,15 @@ public class Executor {
 				return removePlayerFromTeam(teams);
 			case Report:
 				viewReportByHeight(teams);
+				return teams;
 			case Balance:
 				viewLeagueBalanceReport(teams);
-			default:
+				return teams;
+			case Roster:
 				viewRoster(teams);
 				return teams;
+			default:
+				return null;
 		}
 	}
 
