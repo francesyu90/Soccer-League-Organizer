@@ -95,7 +95,7 @@ public class Team implements Comparable<Team>, Serializable {
 	}
 
 	public String toDetailedStringWithTeamMembers() {
-		return String.format("%s [%s]", this, this.mPlayers);
+		return String.format("%s %s", this, this.mPlayers);
 	}
 
 	public void checkForPlayerListSize() throws SLOException {

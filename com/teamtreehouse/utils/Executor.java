@@ -40,6 +40,7 @@ public class Executor {
 			case Balance:
 				viewLeagueBalanceReport(teams);
 			default:
+				viewRoster(teams);
 				return teams;
 		}
 	}
@@ -198,6 +199,23 @@ public class Executor {
 			Prompter.showAverageExperienceLevel(report, team.getPlayerCount());
 			System.out.println();
 
+		}
+		System.out.println("\n");
+
+	}
+
+	private static void viewRoster(Teams teams) throws SLOException {
+
+		List<Team> teamList = new ArrayList<>(teams.getTeamSet());
+		if(teamList.size() == 0) {
+			throw new SLOException(
+				SLCode.SL0025, 
+				Severity.Warning, 
+				MessageTemplate.teamListSizeEmpty);
+		} 
+
+		for(Team team: teamList) {
+			System.out.println(team.toDetailedStringWithTeamMembers());
 		}
 		System.out.println("\n");
 
